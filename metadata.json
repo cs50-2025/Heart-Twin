@@ -1,0 +1,8 @@
+{
+  "name": "Heart Twin AI",
+  "description": "A next-generation cardiovascular AI platform for doctors and patients. Features real-time risk monitoring, AI-powered predictive analysis, and interactive lifestyle simulation.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

@@ -28,28 +28,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onChangeView }) =
   ];
 
   return (
-    <div className="w-64 bg-slate-900 dark:bg-slate-950 text-white h-screen flex flex-col fixed left-0 top-0 border-r border-slate-800 z-50 transition-colors duration-200">
-      <div className="p-6 flex items-center gap-3">
-        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30">
+    <div className="w-64 h-full bg-slate-900/80 backdrop-blur-xl border border-white/5 rounded-2xl flex flex-col shadow-2xl">
+      <div className="p-6 flex items-center gap-3 border-b border-white/5">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
           <HeartPulse className="w-5 h-5 text-white" />
         </div>
-        <span className="text-xl font-bold tracking-tight">Heart Twin</span>
+        <span className="text-lg font-bold tracking-tight text-white">Heart Twin</span>
       </div>
 
-      <div className="px-6 py-4">
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 border border-slate-700/50">
-            <img src={user?.avatarUrl} alt="User" className="w-8 h-8 rounded-full bg-slate-700 object-cover" />
+      <div className="px-6 py-6">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/50 border border-white/5">
+            <img src={user?.avatarUrl} alt="User" className="w-9 h-9 rounded-lg bg-slate-800 object-cover ring-2 ring-slate-800" />
             <div className="overflow-hidden">
-                <p className="text-sm font-medium truncate">{user?.name}</p>
-                <div className="flex gap-2 text-xs text-slate-400 capitalize">
+                <p className="text-sm font-bold text-white truncate">{user?.name}</p>
+                <div className="flex gap-2 text-[10px] text-slate-400 uppercase tracking-wider font-semibold">
                     <span>{user?.role.toLowerCase()}</span>
-                    {user?.patientId && <span className="text-blue-400 font-mono">#{user.patientId}</span>}
                 </div>
             </div>
         </div>
       </div>
 
-      <nav className="flex-1 px-4 space-y-1 mt-2">
+      <nav className="flex-1 px-4 space-y-2 mt-2">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = currentView === item.id;
@@ -57,30 +56,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onChangeView }) =
             <button
               key={item.id}
               onClick={() => onChangeView(item.id)}
-              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 group ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group relative ${
                 isActive 
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50 translate-x-1' 
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' 
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
               }`}
             >
-              <div className="flex items-center gap-3">
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-white'}`} />
+              <div className="flex items-center gap-3 relative z-10">
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-white transition-colors'}`} />
                   <span className="font-medium text-sm">{item.label}</span>
               </div>
               {item.id === 'messages' && unreadCount > 0 && (
-                  <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">{unreadCount}</span>
+                  <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">{unreadCount}</span>
               )}
             </button>
           );
         })}
       </nav>
 
-      <div className="p-4 border-t border-slate-800">
+      <div className="p-4 border-t border-white/5">
         <button 
           onClick={logout}
-          className="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg w-full transition-colors"
+          className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl w-full transition-colors group"
         >
-          <LogOut className="w-5 h-5" />
+          <LogOut className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="text-sm font-medium">Sign Out</span>
         </button>
       </div>
